@@ -20,6 +20,8 @@ with Session(bind=engine) as session:
 
     genre1 = m.Genre(genre_name="Триллер", description="Фильм-катастрофа")
     session.add(genre1)
+    genre2 = m.Genre(genre_name="Боевик", description="")
+    session.add(genre2)
 
     movie_genre1 = m.Movie_Genre(movie_id="1", genre_id="1")
     session.add(movie_genre1)
