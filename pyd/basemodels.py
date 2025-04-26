@@ -21,5 +21,5 @@ class BaseGenre(BaseModel):
 
 class BaseMovie_Genre(BaseModel):
     id: int = Field(example=1)
-    movie_id: int = Field()
-    genre_id: int = Field()
+    # movie_id: int = Field()
+    # genre_id: int = Field()
