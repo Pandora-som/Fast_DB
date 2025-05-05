@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, Text, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Text, Date, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from database import Base
 
 
@@ -13,7 +14,7 @@ class Movie(Base):
     description = Column(Text, nullable=True)
     poster = Column(String)
     date_add = Column(Date)
-    
+
     genres = relationship("Genre", secondary="movie_genre", backref="movies")
 
 
@@ -29,3 +30,12 @@ class Movie_Genre(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     movie_id = Column(Integer, ForeignKey("movies.id"))
     genre_id = Column(Integer, ForeignKey("genres.id"), nullable=True)
+
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    name = Column(String(65), nullable=False, unique=True)
+    email = Column(String(255), nullable=False)
+    password = Column(String(255), nullable=False)
+    created_at = Column(DateTime(), server_default=func.now())
