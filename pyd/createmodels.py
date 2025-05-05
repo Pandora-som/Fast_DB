@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from datetime import datetime, date
 from typing import List
+
 
 class CreateMovie(BaseModel):
     movie_name: str = Field(example="Знамение")
@@ -10,13 +11,19 @@ class CreateMovie(BaseModel):
     description: str | None = Field(example="Фильм-катастрофа")
     poster: str = Field(example="Ссылка на изображение")
     date_add: date = Field(example="2012-12-12")
-    
-    genres_id:List[int]=Field()
+
+    genres_id: List[int] = Field()
 
 
 class CreateGenre(BaseModel):
     genre_name: str = Field(example="Триллер")
     description: str | None = Field(example="Фильм-катастрофа")
+
+
+class CreateUser(BaseModel):
+    name: str = Field(example="Mari", min_length=2, max_length=60)
+    password: str = Field(min_length=6, max_length=60)
+    email: EmailStr = Field(example="mari@mail.ru")
 
 
 # class CreateMovie_Genre(BaseModel):

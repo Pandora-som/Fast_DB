@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from datetime import datetime, date
 
 
@@ -23,3 +23,9 @@ class BaseMovie_Genre(BaseModel):
     id: int = Field(example=1)
     # movie_id: int = Field()
     # genre_id: int = Field()
+
+
+class BaseUser(BaseModel):
+    id: int
+    name: str = Field(example="Mari")
+    email: EmailStr = Field(example="mari@mail.ru")

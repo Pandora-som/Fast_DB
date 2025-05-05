@@ -15,6 +15,21 @@ app = FastAPI()
 app.mount("/files", StaticFiles(directory="files"), name="files")
 
 
+@app.post("/register", response_model=pyd.BaseUser)
+def user_register(create_user: pyd.CreateUser, db: Session = Depends(get_db)):
+    user_db = db.query(m.User).filter(m.User.name == create_user.name).first()
+    if user_db:
+        raise HTTPException(400, "Пользователь с таким логином уже существует")
+    user_db = m.User()
+    user_db.name = create_user.name
+    user_db.password = create_user.password
+    user_db.email = create_user.email
+
+    db.add(user_db)
+    db.commit()
+    return user_db
+
+
 @app.get("/movies", response_model=List[pyd.SchemeMovie])
 def get_all_movies(db: Session = Depends(get_db)):
     movies = db.query(m.Movie).all()
